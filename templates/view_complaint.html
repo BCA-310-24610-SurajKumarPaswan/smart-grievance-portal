@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>View Complaint</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(
+        135deg,
+        #ff9933,
+        white,
+        #138808
+    );
+    overflow:auto;
+    padding-bottom:40px;
+}
+
+.chakra{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:550px;
+    opacity:0.06;
+    animation:spin 40s linear infinite;
+    z-index:-1;
+}
+
+@keyframes spin{
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+.navbar{
+    background:#000814;
+    color:white;
+    padding:14px 35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.container{
+    width:45%;
+    margin:auto;
+    margin-top:50px;
+}
+
+.card{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(12px);
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.2);
+}
+
+.heading{
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:25px;
+
+    background:linear-gradient(
+        to right,
+        #ff6a00,
+        #138808
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.detail-box{
+    background:rgba(255,255,255,0.75);
+    padding:15px;
+    border-radius:14px;
+    margin-bottom:15px;
+}
+
+.label{
+    font-size:14px;
+    font-weight:bold;
+    color:#000814;
+    margin-bottom:5px;
+}
+
+.value{
+    font-size:15px;
+    color:#222;
+}
+
+.badge{
+    padding:6px 14px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.pending{
+    background:#f39c12;
+}
+
+.resolved{
+    background:#27ae60;
+}
+
+.low{
+    background:#3498db;
+}
+
+.medium{
+    background:#8e44ad;
+}
+
+.high{
+    background:#e74c3c;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    background:#000814;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-size:14px;
+    transition:0.3s;
+    border:none;
+    cursor:pointer;
+}
+
+.btn:hover{
+    transform:scale(1.04);
+}
+
+.reply-box{
+    width:100%;
+    height:120px;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    resize:none;
+}
+
+@media(max-width:900px){
+
+.container{
+    width:90%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<img src="{{ url_for('static', filename='ashoka.png') }}" class="chakra">
+
+<div class="navbar">
+
+<div class="logo">
+🇮🇳 Smart Grievance Portal
+</div>
+
+<div>
+{{ session['user'] }}
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="heading">
+Complaint Details
+</div>
+
+<div class="detail-box">
+<div class="label">Complaint ID</div>
+<div class="value">{{ complaint.id }}</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Title</div>
+<div class="value">{{ complaint.title }}</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Description</div>
+<div class="value">{{ complaint.description }}</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Category</div>
+<div class="value">{{ complaint.category }}</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Location</div>
+<div class="value">
+{{ complaint.location if complaint.location else "Not Provided" }}
+</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Priority</div>
+
+<div class="value">
+
+{% if complaint.priority == "Low" %}
+<span class="badge low">Low</span>
+
+{% elif complaint.priority == "Medium" %}
+<span class="badge medium">Medium</span>
+
+{% else %}
+<span class="badge high">High</span>
+{% endif %}
+
+</div>
+
+</div>
+
+<div class="detail-box">
+<div class="label">Status</div>
+
+<div class="value">
+
+{% if complaint.status == "Pending" %}
+<span class="badge pending">Pending</span>
+{% else %}
+<span class="badge resolved">Resolved</span
+{% endif %}
+
+</div>
+
+</div>
+
+<div class="detail-box">
+
+<h3>📌 Complaint Progress</h3>
+
+<br>
+
+<p>✅ Complaint Submitted</p>
+
+{% if complaint.status == "Pending" or complaint.status == "Resolved" %}
+<p>✅ Under Review</p>
+{% endif %}
+
+{% if complaint.reply %}
+<p>✅ Admin Replied</p>
+{% else %}
+<p>⏳ Waiting for Admin Reply</p>
+{% endif %}
+
+{% if complaint.status == "Resolved" %}
+<p>✅ Complaint Resolved</p>
+{% else %}
+<p>⏳ Resolution Pending</p>
+{% endif %}
+
+</div>
+
+<div class="detail-box">
+<div class="label">AI Score</div>
+<div class="value">{{ complaint.ai_score }}</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Evidence</div>
+
+<div class="value">
+
+{% if complaint.evidence %}
+
+<a
+href="{{ url_for('static', filename='uploads/' + complaint.evidence) }}"
+target="_blank"
+class="btn">
+
+📎 View Evidence
+
+</a>
+
+{% else %}
+
+No Evidence Uploaded
+
+{% endif %}
+
+</div>
+</div>
+
+<div class="detail-box">
+<div class="label">Admin Reply</div>
+
+<div class="value">
+
+{% if complaint.reply %}
+
+{{ complaint.reply }}
+
+{% else %}
+
+No Reply Yet
+
+{% endif %}
+
+</div>
+</div>
+
+{% if session["role"] == "admin" %}
+
+<div class="detail-box">
+
+<form method="POST">
+
+<div class="label">
+Send Reply To User
+</div>
+
+<textarea
+name="reply"
+class="reply-box"
+required></textarea>
+
+<button
+type="submit"
+class="btn">
+
+Send Reply
+
+</button>
+
+</form>
+
+</div>
+
+{% endif %}
+
+<a href="{{ url_for('user_dashboard') }}" class="btn">
+← Back to Dashboard
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

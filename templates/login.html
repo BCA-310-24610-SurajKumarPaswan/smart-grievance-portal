@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+html, body{
+    height:100%;
+    margin:0;
+    font-family:Arial, sans-serif;
+}
+
+/* BACKGROUND */
+body{
+    background:linear-gradient(
+        -45deg,
+        #FF9933,
+        #FFFFFF,
+        #138808,
+        #0d6efd
+    );
+
+    background-size:400% 400%;
+    animation:bgMove 10s ease infinite;
+    overflow:hidden;
+}
+
+/* BACKGROUND ANIMATION */
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+/* ASHOKA CHAKRA */
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    width:320px;
+    height:320px;
+
+    background:url("https://upload.wikimedia.org/wikipedia/commons/1/17/Ashoka_Chakra.svg")
+    no-repeat center;
+
+    background-size:contain;
+
+    opacity:0.05;
+
+    transform:translate(-50%,-50%);
+
+    animation:spin 30s linear infinite;
+
+    z-index:-1;
+}
+
+@keyframes spin{
+
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+/* CONTAINER */
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-top:-40px;
+}
+
+/* CARD */
+.login-card{
+
+    width:390px;
+
+    background:rgba(255,255,255,0.95);
+
+    padding:24px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    backdrop-filter:blur(8px);
+}
+
+/* HEADER */
+.login-header{
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+    background:linear-gradient(
+        to right,
+        #ff6a00,
+        #138808
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* TABS */
+.nav-tabs .nav-link{
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    color:#000;
+
+    border-radius:8px;
+}
+
+.nav-tabs .nav-link.active{
+
+    background:linear-gradient(
+        to right,
+        #ff9933,
+        #138808
+    );
+
+    color:white;
+}
+
+/* LABEL */
+label{
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+
+    display:block;
+}
+
+/* INPUT */
+.form-control{
+
+    height:42px;
+
+    font-size:14px;
+
+    border-radius:10px;
+
+    padding:8px 12px;
+
+    border:1px solid #ccc;
+}
+
+/* PASSWORD */
+.password-wrapper{
+    position:relative;
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:12px;
+
+    top:38px;
+
+    cursor:pointer;
+
+    font-size:14px;
+}
+
+/* BUTTON */
+.btn-india{
+
+    background:linear-gradient(
+        to right,
+        #ff9933,
+        #138808
+    );
+
+    border:none;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    transition:0.3s;
+}
+
+.btn-india:hover{
+
+    opacity:0.9;
+
+    transform:scale(1.02);
+}
+
+/* LINKS */
+.forgot-link,
+.register-link{
+
+    text-align:center;
+
+    margin-top:12px;
+
+    font-size:13px;
+}
+
+.forgot-link a,
+.register-link a{
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+/* FOOTER */
+.footer-text{
+
+    text-align:center;
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    color:#444;
+}
+
+</style>
+
+<div class="login-container">
+
+<div class="login-card">
+
+<div class="login-header">
+🇮🇳 Smart Grievance Portal
+</div>
+
+<!-- TABS -->
+
+<ul class="nav nav-tabs justify-content-center mb-3">
+
+<li class="nav-item w-50 text-center">
+
+<button
+class="nav-link active w-100"
+data-bs-toggle="tab"
+data-bs-target="#userLogin">
+
+User Login
+
+</button>
+
+</li>
+
+<li class="nav-item w-50 text-center">
+
+<button
+class="nav-link w-100"
+data-bs-toggle="tab"
+data-bs-target="#adminLogin">
+
+Admin Login
+
+</button>
+
+</li>
+
+</ul>
+
+<div class="tab-content">
+
+<!-- USER LOGIN -->
+
+<div class="tab-pane fade show active" id="userLogin">
+
+<form method="POST">
+
+<input type="hidden" name="role" value="user">
+
+<div class="mb-3">
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3 password-wrapper">
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+id="password1"
+class="form-control"
+required>
+
+<span
+class="toggle-password"
+onclick="togglePassword('password1')">
+
+👁
+
+</span>
+
+</div>
+
+<div class="d-grid mt-3">
+
+<button class="btn btn-india">
+
+Login as User
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- ADMIN LOGIN -->
+
+<div class="tab-pane fade" id="adminLogin">
+
+<form method="POST">
+
+<input type="hidden" name="role" value="admin">
+
+<div class="mb-3">
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3 password-wrapper">
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+id="password2"
+class="form-control"
+required>
+
+<span
+class="toggle-password"
+onclick="togglePassword('password2')">
+
+👁
+
+</span>
+
+</div>
+
+<div class="d-grid mt-3">
+
+<button class="btn btn-india">
+
+Login as Admin
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- FORGOT PASSWORD -->
+
+<div class="forgot-link">
+
+<a href="{{ url_for('forgot_password') }}">
+
+Forgot Password?
+
+</a>
+
+</div>
+
+<!-- REGISTER -->
+
+<div class="register-link">
+
+New User?
+
+<a href="{{ url_for('register') }}">
+
+Create Account
+
+</a>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer-text">
+
+Government of India Inspired Design 🇮🇳
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function togglePassword(id){
+
+    const field =
+    document.getElementById(id);
+
+    field.type =
+    field.type === "password"
+    ? "text"
+    : "password";
+}
+
+</script>
+
+{% endblock %}

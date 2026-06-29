@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+/* Tiranga Background */
+body {
+    background: linear-gradient(
+        180deg,
+        rgba(255,153,51,0.08),
+        rgba(255,255,255,0.95),
+        rgba(19,136,8,0.08)
+    );
+}
+
+/* Full Screen Ashoka Chakra */
+.chakra-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    opacity: 0.05;
+    z-index: 0;
+    animation: rotateChakra 40s linear infinite;
+}
+
+@keyframes rotateChakra {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.gov-heading {
+    font-weight: 700;
+    font-size: 30px;
+    background: linear-gradient(90deg,#FF9933,#ffffff,#138808);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.premium-card {
+    border-radius: 20px;
+    background: white;
+    transition: 0.3s ease;
+}
+
+.premium-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.08);
+}
+
+.table thead {
+    background: linear-gradient(90deg,#FF9933,#138808);
+    color: white;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+</style>
+
+<!-- Rotating Chakra -->
+<div class="chakra-bg">
+<svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" stroke="#000080" stroke-width="2" fill="none"/>
+    {% for i in range(24) %}
+    <line x1="50" y1="50" x2="50" y2="5"
+          stroke="#000080"
+          stroke-width="1"
+          transform="rotate({{ i*15 }} 50 50)" />
+    {% endfor %}
+</svg>
+</div>
+
+<div class="container mt-4 content-wrapper">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="gov-heading">🇮🇳 Citizen Service Dashboard</h2>
+        <a href="{{ url_for('new_complaint') }}" class="btn btn-success shadow">
+            + New Complaint
+        </a>
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card premium-card shadow p-4 text-center">
+                <h6>Total Complaints</h6>
+                <h2 class="text-primary fw-bold">
+                    {{ complaints|length }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card premium-card shadow p-4 text-center">
+                <h6>Pending</h6>
+                <h2 class="text-warning fw-bold">
+                    {{ complaints | selectattr('status','equalto','Pending') | list | length }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card premium-card shadow p-4 text-center">
+                <h6>Resolved</h6>
+                <h2 class="text-success fw-bold">
+                    {{ complaints | selectattr('status','equalto','Resolved') | list | length }}
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card premium-card shadow p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.id }}</td>
+                        <td>{{ complaint.title }}</td>
+                        <td>{{ complaint.category }}</td>
+
+                        <td>
+                            {% if complaint.priority == "High" %}
+                                <span class="badge bg-danger">High</span>
+                            {% elif complaint.priority == "Medium" %}
+                                <span class="badge bg-warning text-dark">Medium</span>
+                            {% else %}
+                                <span class="badge bg-success">Low</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if complaint.status == "Pending" %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% else %}
+                                <span class="badge bg-success">Resolved</span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ complaint.created_at }}</td>
+
+                        <td>
+                            <a href="{{ url_for('view_complaint', id=complaint.id) }}"
+                               class="btn btn-primary btn-sm">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Smart Grievance Portal</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:linear-gradient(
+        135deg,
+        #ff9933,
+        white,
+        #138808
+    );
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+
+    width:500px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 0 15px #ccc;
+}
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:15px;
+}
+
+button{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:15px;
+
+    border:none;
+
+    background:#138808;
+
+    color:white;
+
+    border-radius:8px;
+}
+
+.link{
+
+    margin-top:15px;
+}
+
+a{
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+🇮🇳 Smart Grievance Portal
+</h1>
+
+<p>
+Track your complaint instantly
+</p>
+
+<form action="/track" method="POST">
+
+<input
+type="text"
+name="tracking_id"
+placeholder="Enter Tracking ID"
+required>
+
+<button type="submit">
+
+🔍 Track Complaint
+
+</button>
+
+</form>
+
+<div class="link">
+
+<a href="/login">
+
+Login
+
+</a>
+
+|
+
+<a href="/register">
+
+Register
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

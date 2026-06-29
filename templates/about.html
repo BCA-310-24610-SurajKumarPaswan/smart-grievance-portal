@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>About Project</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+
+background:linear-gradient(
+135deg,
+#ff9933,
+white,
+#138808
+);
+
+min-height:100vh;
+
+}
+
+.chakra{
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:650px;
+
+opacity:0.05;
+
+animation:spin 35s linear infinite;
+
+z-index:-1;
+
+}
+
+@keyframes spin{
+
+from{
+
+transform:translate(-50%,-50%) rotate(0deg);
+
+}
+
+to{
+
+transform:translate(-50%,-50%) rotate(360deg);
+
+}
+
+}
+
+.navbar{
+
+background:#001845;
+
+padding:18px 35px;
+
+color:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.logo{
+
+font-size:28px;
+
+font-weight:bold;
+
+}
+
+.container{
+
+width:70%;
+
+margin:auto;
+
+margin-top:40px;
+
+}
+
+.card{
+
+background:rgba(255,255,255,0.25);
+
+backdrop-filter:blur(12px);
+
+padding:35px;
+
+border-radius:20px;
+
+box-shadow:0 5px 25px rgba(0,0,0,.2);
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:25px;
+
+color:#001845;
+
+}
+
+p{
+
+font-size:18px;
+
+line-height:30px;
+
+margin-bottom:18px;
+
+}
+
+ul{
+
+margin-left:25px;
+
+font-size:18px;
+
+line-height:35px;
+
+}
+
+.back{
+
+display:inline-block;
+
+margin-top:30px;
+
+padding:12px 20px;
+
+background:#001845;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:10px;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.back:hover{
+
+transform:scale(1.05);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img
+src="{{ url_for('static', filename='ashoka.png') }}"
+class="chakra">
+
+<div class="navbar">
+
+<div class="logo">
+
+🇮🇳 Smart Grievance Portal
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>
+
+About Smart Grievance Portal
+
+</h1>
+
+<p>
+
+<b>Project Name:</b>
+
+Smart Grievance Portal
+
+</p>
+
+<p>
+
+<b>Objective:</b>
+
+This project provides an online platform where citizens can register complaints, upload evidence, track complaint status using a Tracking ID, receive admin replies, and download FIR reports. The system helps government authorities manage public grievances efficiently.
+
+</p>
+
+<p>
+
+<b>Technologies Used:</b>
+
+</p>
+
+<ul>
+
+<li>Python</li>
+
+<li>Flask</li>
+
+<li>SQLite</li>
+
+<li>HTML</li>
+
+<li>CSS</li>
+
+<li>JavaScript</li>
+
+<li>Chart.js</li>
+
+</ul>
+
+<p>
+
+<b>Key Features:</b>
+
+</p>
+
+<ul>
+
+<li>AI Priority Detection</li>
+
+<li>Complaint Tracking ID</li>
+
+<li>Evidence Upload</li>
+
+<li>Admin Dashboard</li>
+
+<li>Complaint Timeline</li>
+
+<li>PDF FIR Generation</li>
+
+<li>Analytics Dashboard</li>
+
+<li>Search & Filters</li>
+
+</ul>
+
+<p>
+
+<b>Developed By:</b>
+
+Suraj Kumar Paswan
+
+</p>
+
+<p>
+
+<b>Academic Session:</b>
+
+2025–2026
+
+</p>
+
+<a
+href="javascript:history.back()"
+class="back">
+
+⬅ Back
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

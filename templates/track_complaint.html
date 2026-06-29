@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Track Complaint</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(
+135deg,
+#ff9933,
+white,
+#138808
+);
+}
+
+.chakra{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:600px;
+opacity:0.06;
+z-index:-1;
+animation:spin 35s linear infinite;
+}
+
+@keyframes spin{
+from{transform:translate(-50%,-50%) rotate(0deg);}
+to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+.navbar{
+background:#000814;
+color:white;
+padding:15px 30px;
+font-size:24px;
+font-weight:bold;
+}
+
+.container{
+width:50%;
+margin:auto;
+margin-top:60px;
+}
+
+.card{
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.heading{
+text-align:center;
+font-size:32px;
+font-weight:bold;
+margin-bottom:25px;
+}
+
+.input-box{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+margin-bottom:15px;
+font-size:16px;
+}
+
+.btn{
+background:#138808;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+}
+
+.result{
+margin-top:25px;
+background:white;
+padding:20px;
+border-radius:15px;
+}
+
+.status{
+color:#27ae60;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img src="{{ url_for('static', filename='ashoka.png') }}"
+class="chakra">
+
+<div class="navbar">
+🇮🇳 Smart Grievance Portal
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="heading">
+🔍 Track Complaint
+</div>
+
+<form method="POST">
+
+<input
+type="text"
+name="tracking_id"
+class="input-box"
+placeholder="Enter Tracking ID"
+required>
+
+<button type="submit" class="btn">
+Search
+</button>
+
+</form>
+
+{% if complaint %}
+
+<div class="result">
+
+<h3>{{ complaint.title }}</h3>
+
+<br>
+
+<p>
+<b>Tracking ID:</b>
+{{ complaint.tracking_id }}
+</p>
+
+<p>
+<b>Status:</b>
+<span class="status">
+{{ complaint.status }}
+</span>
+</p>
+
+<p>
+<b>Priority:</b>
+{{ complaint.priority }}
+</p>
+
+<p>
+<b>Category:</b>
+{{ complaint.category }}
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>

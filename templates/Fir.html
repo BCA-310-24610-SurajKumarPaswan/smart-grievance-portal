@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FIR Report</title>
+<style>
+body{
+    font-family:Times New Roman;
+    background:#f4f4f4;
+    padding:40px;
+}
+
+.fir-box{
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+h2{text-align:center;}
+pre{
+    white-space:pre-wrap;
+    font-size:16px;
+}
+.print-btn{
+    background:green;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="fir-box">
+<h2>Official FIR Report</h2>
+<pre>{{ fir }}</pre>
+<button onclick="window.print()" class="print-btn">Print FIR</button>
+</div>
+
+</body>
+</html>

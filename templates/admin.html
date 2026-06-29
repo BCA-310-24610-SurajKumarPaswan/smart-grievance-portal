@@ -1,0 +1,592 @@
+\<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Segoe UI;
+    background:#f4f7fa;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:#061a40;
+    color:white;
+    padding:16px 30px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.navbar h2{
+    margin:0;
+    font-size:28px;
+}
+
+.logout{
+    background:#ff4d4d;
+    padding:10px 18px;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+/* ASHOKA CHAKRA */
+
+body::before{
+    content:"";
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    width:800px;
+    height:800px;
+
+    background:url("https://upload.wikimedia.org/wikipedia/commons/1/17/Ashoka_Chakra.svg")
+    no-repeat center;
+
+    background-size:contain;
+
+    opacity:0.05;
+
+    transform:translate(-50%,-50%);
+
+    animation:rotate 60s linear infinite;
+
+    z-index:-1;
+}
+
+@keyframes rotate{
+
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+/* AI CARD */
+
+.ai-card{
+
+    margin:25px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #ff9933,
+        #138808
+    );
+
+    box-shadow:0 5px 18px rgba(0,0,0,0.2);
+}
+
+.ai-card h3{
+    margin-top:0;
+}
+
+/* SUMMARY CARDS */
+
+.cards{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:25px;
+}
+
+.card{
+    flex:1;
+    min-width:200px;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    color:white;
+
+    text-align:center;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+
+.total{
+    background:#e68e46;
+}
+
+.pending{
+    background:#ffffff;
+    color:black;
+}
+
+.resolved{
+    background:#266504;
+}
+
+.high{
+    background:#66cdec;
+   
+}
+
+/* FILTERS */
+
+.filters{
+    margin:25px;
+
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.filters input,
+.filters select{
+
+    padding:10px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    min-width:180px;
+}
+
+.apply-btn{
+
+    background:#0d6efd;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px 20px;
+
+    cursor:pointer;
+}
+
+/* CHART */
+
+.chart-box{
+
+    width:90%;
+
+    margin:auto;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* TABLE */
+
+.table-box{
+
+    margin:25px;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    overflow-x:auto;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+
+    background:#061a40;
+
+    color:white;
+
+    padding:14px;
+}
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+}
+
+/* BADGES */
+
+.badge{
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    color:white;
+
+    font-size:13px;
+}
+
+.low{
+    background:#0d6efd;
+}
+
+.medium{
+    background:#6f42c1;
+}
+
+.high-priority{
+    background:#dc3545;
+}
+
+.pending-status{
+    background:#ffc107;
+    color:black;
+}
+
+.resolved-status{
+    background:#198754;
+}
+
+/* BUTTONS */
+
+.btn{
+
+    padding:7px 12px;
+
+    border-radius:6px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    display:inline-block;
+
+    margin:2px;
+}
+
+.view{
+    background:#0d6efd;
+}
+
+.resolve{
+    background:#198754;
+}
+
+.fir{
+    background:#6f42c1;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<h2>🇮🇳 Smart Grievance Portal</h2>
+
+Welcome Admin
+
+<a href="{{ url_for('about') }}"
+class="btn"
+style="background:#17a2b8; margin-right:10px;">
+About
+</a>
+
+<a href="{{ url_for('logout') }}" class="btn logout">
+Logout
+</a>
+
+</div>
+
+<!-- AI ANALYTICS -->
+
+<div class="ai-card">
+
+<h3>🤖 AI Analytics</h3>
+
+<p><b>Risk Level:</b> {{ risk_level }}</p>
+
+<p><b>High Priority %:</b> {{ high_percent }}%</p>
+
+<p><b>Top Category:</b> {{ most_category }}</p>
+
+</div>
+
+<!-- SUMMARY -->
+
+<div class="cards">
+
+<div class="card total">
+<h3>Total Complaints</h3>
+<h1>{{ total }}</h1>
+</div>
+
+<div class="card pending">
+<h3>Pending</h3>
+<h1>{{ pending }}</h1>
+</div>
+
+<div class="card resolved">
+<h3>Resolved</h3>
+<h1>{{ resolved }}</h1>
+</div>
+
+<div class="card high">
+<h3>High Priority</h3>
+<h1>{{ high_priority }}</h1>
+</div>
+
+</div>
+
+<!-- FILTER -->
+
+<form method="GET" class="filters">
+
+<input
+type="text"
+name="search"
+placeholder="Search by user"
+value="{{ request.args.get('search','') }}">
+
+<select name="status">
+
+<option value="">All Status</option>
+
+<option value="Pending">Pending</option>
+
+<option value="Resolved">Resolved</option>
+
+</select>
+
+<select name="priority">
+
+<option value="">All Priority</option>
+
+<option value="High">High</option>
+
+<option value="Medium">Medium</option>
+
+<option value="Low">Low</option>
+
+</select>
+
+<button type="submit" class="apply-btn">
+Apply Filter
+</button>
+
+</form>
+
+<!-- CHART -->
+
+<div class="chart-box">
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Tracking ID</th>
+<th>User</th>
+<th>Title</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Location</th>
+<th>Date</th>
+<th>Evidence</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for c in complaints %}
+
+<tr>
+
+<td>{{ c.id }}</td>
+
+<td>{{ c.tracking_id }}</td>
+
+<td>{{ c.user_name }}</td>
+
+<td>{{ c.title }}</td>
+
+<td>{{ c.category }}</td>
+
+<td>
+
+{% if c.priority == "High" %}
+
+<span class="badge high-priority">
+{{ c.priority }}
+</span>
+
+{% elif c.priority == "Medium" %}
+
+<span class="badge medium">
+{{ c.priority }}
+</span>
+
+{% else %}
+
+<span class="badge low">
+{{ c.priority }}
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if c.status == "Pending" %}
+
+<span class="badge pending-status">
+Pending
+</span>
+
+{% else %}
+
+<span class="badge resolved-status">
+Resolved
+</span>
+
+{% endif %}
+
+</td>
+
+<td>{{ c.location }}</td>
+
+<td>{{ c.created_at }}</td>
+
+<td>
+{% if c.evidence %}
+<a href="{{ url_for('static', filename='uploads/' + c.evidence) }}"
+target="_blank">
+📎 View File
+</a>
+{% else %}
+No File
+{% endif %}
+</td>
+
+<td>
+<a href="{{ url_for('view_complaint', id=c.id) }}" class="btn view">
+View
+</a>
+
+{% if c.status == "Pending" %}
+<a href="{{ url_for('update_status', id=c.id, status='Resolved') }}"
+class="btn resolve">
+Resolve
+</a>
+{% endif %}
+
+<a href="{{ url_for('generate_fir', id=c.id) }}"
+class="btn fir">
+FIR
+</a>
+
+<a href="{{ url_for('download_fir', id=c.id) }}"
+class="btn fir">
+📄 PDF
+</a>
+
+</td>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+const ctx =
+document.getElementById("chart");
+
+new Chart(ctx, {
+
+type:"bar",
+
+data:{
+
+labels:[
+"Total",
+"Pending",
+"Resolved",
+"High Priority"
+],
+
+datasets:[{
+
+label:"Complaints",
+
+data:[
+{{ total }},
+{{ pending }},
+{{ resolved }},
+{{ high_priority }}
+]
+
+}]
+
+},
+
+options:{
+responsive:true
+}
+
+});
+
+</script>
+
+</body>
+</html>

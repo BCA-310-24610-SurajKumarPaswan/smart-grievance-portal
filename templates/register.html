@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+/* Full Height Fix */
+html, body {
+    height: 100%;
+}
+
+/* 🇮🇳 Animated Tiranga Background */
+body {
+    background: linear-gradient(-45deg, #FF9933, #FFFFFF, #138808, #0d6efd);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+}
+
+/* Animation */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Ashoka Chakra Watermark */
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    height: 420px;
+    background: url("https://upload.wikimedia.org/wikipedia/commons/1/17/Ashoka_Chakra.svg") no-repeat center;
+    background-size: contain;
+    opacity: 0.05;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* Center Layout */
+.register-container {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🔥 Professional Card (White Solid so content always visible) */
+.register-card {
+    width: 460px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 22px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.register-header {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 25px;
+}
+
+/* Labels */
+.register-card label {
+    font-weight: 500;
+    color: #0d1b2a;
+}
+
+/* Input */
+.form-control {
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* Button */
+.btn-india {
+    background: linear-gradient(90deg, #FF9933, #138808);
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    transition: 0.3s ease;
+}
+
+.btn-india:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Password Eye */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    cursor: pointer;
+    color: #555;
+}
+
+/* Footer */
+.small-text {
+    text-align: center;
+    margin-top: 18px;
+    color: #333;
+}
+
+.small-text a {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.small-text a:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <div class="register-header">
+            🇮🇳 Create Account
+        </div>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label>Full Name</label>
+                <input type="text" name="full_name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3 password-wrapper">
+                <label>Password</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+            <div class="mb-3">
+    <label>Register As</label>
+    <select name="role" class="form-control" required>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
+</div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-india">
+                    Create Account
+                </button>
+            </div>
+            
+
+        </form>
+
+        <div class="small-text">
+            Already have an account? 
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const field = document.getElementById("password");
+    field.type = field.type === "password" ? "text" : "password";
+}
+</script>
+
+{% endblock %}
