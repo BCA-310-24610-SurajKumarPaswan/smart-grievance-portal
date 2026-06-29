@@ -296,6 +296,39 @@ table{
 
 }
 
+/* ===== Dark Mode ===== */
+
+body.dark{
+    background:#121212;
+    color:white;
+}
+
+body.dark .navbar{
+    background:#000;
+}
+
+body.dark .card{
+    background:#1f1f1f;
+    color:white;
+}
+
+body.dark .table-box{
+    background:#1f1f1f;
+}
+
+body.dark td{
+    background:#2b2b2b;
+    color:white;
+}
+
+body.dark th{
+    background:#000;
+}
+
+body.dark .heading{
+    -webkit-text-fill-color:white;
+}
+
 </style>
 </head>
 
@@ -320,8 +353,18 @@ style="background:#17a2b8; margin-right:10px;">
 About
 </a>
 
+<a href="{{ url_for('about') }}" class="btn" style="background:#17a2b8;">
+About
+</a>
+
+<button id="darkModeBtn" class="btn" style="background:#333;">
+🌙 Dark Mode
+</button>
+
 <a href="{{ url_for('logout') }}" class="btn logout">
 Logout
+
+</a>
 </a>
 </div>
 
@@ -445,6 +488,31 @@ View
 </div>
 
 </div>
+<script>
+
+const btn = document.getElementById("darkModeBtn");
+
+// Load saved mode
+if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark");
+    btn.innerHTML = "☀️ Light Mode";
+}
+
+btn.onclick = function(){
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("theme","dark");
+        btn.innerHTML="☀️ Light Mode";
+    }else{
+        localStorage.setItem("theme","light");
+        btn.innerHTML="🌙 Dark Mode";
+    }
+
+}
+
+</script>
 
 </body>
 </html>
