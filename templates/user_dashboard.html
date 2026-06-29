@@ -7,6 +7,24 @@
 <title>User Dashboard</title>
 
 <style>
+.top-section{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+}
+
+@media(max-width:768px){
+
+.top-section{
+
+flex-direction:column;
+text-align:center;
+
+}
+
+}
 .track-btn{
     background:#ff9933;
     color:white;
@@ -226,6 +244,58 @@ tr:hover td{
     background:#e74c3c;
 }
 
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+.navbar{
+    flex-direction:column;
+    text-align:center;
+    gap:10px;
+    padding:15px;
+}
+
+.heading{
+    font-size:28px;
+    text-align:center;
+}
+
+.cards{
+    flex-direction:column;
+}
+
+.card{
+    width:100%;
+}
+
+.container{
+    width:95%;
+}
+
+.table-box{
+    overflow-x:auto;
+}
+
+table{
+    min-width:700px;
+}
+
+.btn{
+    display:inline-block;
+    margin:5px;
+}
+
+.track-btn{
+    display:inline-block;
+    margin-bottom:10px;
+}
+
+.chakra{
+    width:350px;
+}
+
+}
+
 </style>
 </head>
 
@@ -260,7 +330,7 @@ Logout
 <!-- MAIN CONTAINER -->
 <div class="container">
 
-<div style="display:flex;justify-content:space-between;align-items:center;">
+<div class="top-section">
 
 <div class="heading">
 Citizen Dashboard
@@ -305,8 +375,9 @@ class="track-btn">
 <!-- TABLE -->
 <div class="table-box">
 
-<table>
+<div style="overflow-x:auto;">
 
+<table>
 <tr>
 <th>ID</th>
 <th>Tracking ID</th>
@@ -369,6 +440,7 @@ View
 {% endfor %}
 
 </table>
+
 
 </div>
 
