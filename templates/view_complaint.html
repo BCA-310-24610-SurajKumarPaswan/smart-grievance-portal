@@ -173,6 +173,47 @@ body{
 
 }
 
+/* ===== DARK MODE ===== */
+
+body.dark-mode{
+    background:#121212;
+}
+
+body.dark-mode .card{
+    background:#1e1e1e;
+    color:white;
+}
+
+body.dark-mode .detail-box{
+    background:#2b2b2b;
+}
+
+body.dark-mode .label{
+    color:#ffffff;
+}
+
+body.dark-mode .value{
+    color:#eeeeee;
+}
+
+body.dark-mode .navbar{
+    background:#000;
+}
+
+body.dark-mode .reply-box{
+    background:#2b2b2b;
+    color:white;
+    border:1px solid #555;
+}
+
+body.dark-mode .btn{
+    background:#444;
+}
+
+body.dark-mode .heading{
+    -webkit-text-fill-color:white;
+}
+
 </style>
 </head>
 
@@ -187,7 +228,16 @@ body{
 </div>
 
 <div>
+
 {{ session['user'] }}
+
+<button
+id="darkModeBtn"
+class="btn"
+style="margin-left:15px; margin-top:0;">
+🌙 Dark
+</button>
+
 </div>
 
 </div>
@@ -254,7 +304,7 @@ Complaint Details
 {% if complaint.status == "Pending" %}
 <span class="badge pending">Pending</span>
 {% else %}
-<span class="badge resolved">Resolved</span
+<span class="badge resolved">Resolved</span>
 {% endif %}
 
 </div>
@@ -371,6 +421,39 @@ Send Reply
 </div>
 
 </div>
+<script>
+
+const btn=document.getElementById("darkModeBtn");
+
+if(localStorage.getItem("theme")=="dark"){
+
+    document.body.classList.add("dark-mode");
+
+    btn.innerHTML="☀ Light";
+
+}
+
+btn.onclick=function(){
+
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")){
+
+        localStorage.setItem("theme","dark");
+
+        btn.innerHTML="☀ Light";
+
+    }else{
+
+        localStorage.setItem("theme","light");
+
+        btn.innerHTML="🌙 Dark";
+
+    }
+
+}
+
+</script>
 
 </body>
 </html>

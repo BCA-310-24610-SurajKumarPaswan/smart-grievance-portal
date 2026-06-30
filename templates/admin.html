@@ -305,6 +305,44 @@ td{
     background:#6f42c1;
 }
 
+/* ===== DARK MODE ===== */
+
+body.dark-mode{
+    background:#121212;
+    color:#ffffff;
+}
+
+body.dark-mode .navbar{
+    background:#000000;
+}
+
+body.dark-mode .table-box,
+body.dark-mode .chart-box{
+    background:#1e1e1e;
+    color:white;
+}
+
+body.dark-mode .ai-card{
+    background:#2b2b2b;
+    color:white;
+}
+
+body.dark-mode th{
+    background:#111;
+}
+
+body.dark-mode td{
+    background:#1e1e1e;
+    color:white;
+    border-color:#444;
+}
+
+body.dark-mode input,
+body.dark-mode select{
+    background:#2b2b2b;
+    color:white;
+    border:1px solid #555;
+}
 </style>
 </head>
 
@@ -317,6 +355,9 @@ td{
 <h2>🇮🇳 Smart Grievance Portal</h2>
 
 Welcome Admin
+<button id="darkModeBtn" class="btn" style="background:#343a40; margin-left:10px;">
+🌙 Dark Mode
+</button>
 
 <a href="{{ url_for('about') }}"
 class="btn"
@@ -586,6 +627,29 @@ responsive:true
 
 });
 
+</script>
+
+<script>
+const btn = document.getElementById("darkModeBtn");
+
+if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark-mode");
+    btn.innerHTML = "☀ Light Mode";
+}
+
+btn.addEventListener("click", function(){
+
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("theme","dark");
+        btn.innerHTML = "☀ Light Mode";
+    }else{
+        localStorage.setItem("theme","light");
+        btn.innerHTML = "🌙 Dark Mode";
+    }
+
+});
 </script>
 
 </body>
