@@ -404,7 +404,7 @@ https://smart-grievance-portal.onrender.com
 
 Bachelor of Computer Applications (BCA)
 
-CIMAGE Group of Institutions
+CIMAGE Professional College
 
 Aryabhatta Knowledge University
 
