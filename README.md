@@ -414,7 +414,7 @@ Madhubani, Bihar, India
 
 # 🙏 Acknowledgement
 
-This project was developed as part of the Bachelor of Computer Applications curriculum under the guidance of faculty members of CIMAGE Group of Institutions.
+This project was developed as part of the Bachelor of Computer Applications curriculum under the guidance of faculty members of CIMAGE Professional College.
 
 ---
 
