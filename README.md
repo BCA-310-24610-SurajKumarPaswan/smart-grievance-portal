@@ -423,7 +423,5 @@ This project was developed as part of the Bachelor of Computer Applications curr
 This project is developed for educational and academic purposes only.
 
 ---
-#📞 Contact
-For any queries: surajkumarpaswan3032@gmail.com
 
 ⭐ If you found this project useful, please consider giving it a Star.
