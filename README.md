@@ -417,4 +417,11 @@ Madhubani, Bihar, India
 This project was developed as part of the Bachelor of Computer Applications curriculum under the guidance of faculty members of CIMAGE Professional College.
 
 ---
+# 📄 License
+
+This project is developed for educational and academic purposes only.
+
+---
+
+⭐ If you found this project useful, please consider giving it a Star.
 
