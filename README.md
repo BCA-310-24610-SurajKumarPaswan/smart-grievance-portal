@@ -418,10 +418,3 @@ This project was developed as part of the Bachelor of Computer Applications curr
 
 ---
 
-# 📄 License
-
-This project is developed for educational and academic purposes only.
-
----
-
-⭐ If you found this project useful, please consider giving it a Star.
